@@ -25,6 +25,7 @@ Search by:<br>
 <button type="submit" value="submitI">Insert</Button> <button type="reset" value="resetI">Reset</Button>
 </form>
 
+<br>XML<br>
 <table style="width:100%" border="1" >
 <tr><th><b>UPC</th>
 <th><b>Manufacturer</th>
@@ -33,6 +34,13 @@ Search by:<br>
 </tr>
 ${glob}
 </table>
+
+<br>JSON<br>
+<table style="width:100%" border="1" >
+${json}
+</table>
+
+
 
 <h2>Operation : ${op}</h2>
 </body>

@@ -3,6 +3,8 @@ package com.mkyong.controller;
 
 import java.sql.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +20,44 @@ public class BaseController {
 	private static Product obj=new Product();
 	private static final String VIEW_INDEX = "index";
 	private final static org.slf4j.Logger logger = LoggerFactory.getLogger(BaseController.class);
+	
+	public static void jsonXxml(int ch,ResultSet rs) throws Exception
+	{	if(ch==0)
+		convertToXML(rs);
+		else
+		convertToJSON(rs);
+	}
+	public static void convertToJSON(ResultSet resultSet)
+            throws Exception {
+        JSONArray jsonArray = new JSONArray();
+        
+        while (resultSet.next()) {
+            int total_rows = resultSet.getMetaData().getColumnCount();
+            JSONObject json = new JSONObject();
+            for (int i = 0; i < total_rows; i++) {
+                json.put(resultSet.getMetaData().getColumnLabel(i + 1)
+                        .toLowerCase(), resultSet.getObject(i + 1));
+            }
+            jsonArray.put(json);
+            obj.manf+="<tr><td><pre>"
+            		+json+"</pre></td></tr>";
+        }
+        
+        
+        
+    }
+	
+	public static void convertToXML(ResultSet rs) throws SQLException
+	{
+		while(rs.next())
+		{	
+			obj.upc+="<tr><td>"+rs.getString(1)+"</td>";
+			obj.upc+="<td>"+rs.getString(2)+"</td>";
+			obj.upc+="<td>"+rs.getString(3)+"</td>";
+			obj.upc+="<td>"+rs.getString(4)+"</td></tr>";
+			
+		}
+	}
 	
 	public boolean create()
 	{
@@ -49,14 +89,9 @@ public class BaseController {
 			String sql="select * from product where upc like '"+upc+"' and manufacturer like '"+manf+"' and "
 					+ "brand like '"+brand+"' and size like '"+size+"';";
 			ResultSet rs= st.executeQuery(sql);
-			while(rs.next())
-			{	
-				obj.upc+="<tr><td>"+rs.getString(1)+"</td>";
-				obj.upc+="<td>"+rs.getString(2)+"</td>";
-				obj.upc+="<td>"+rs.getString(3)+"</td>";
-				obj.upc+="<td>"+rs.getString(4)+"</td>";
-				
-			}
+			
+		jsonXxml(1,rs);
+		
 			return true;
 		}catch(Exception  e){logger.debug(e.toString());}
 		return false;
@@ -70,14 +105,7 @@ public class BaseController {
 			String sql="select * from product;";
 			ResultSet rs= st.executeQuery(sql);
 			
-			while(rs.next())
-			{	
-				obj.upc+="<tr><td>"+rs.getString(1)+"</td>";
-				obj.upc+="<td>"+rs.getString(2)+"</td>";
-				obj.upc+="<td>"+rs.getString(3)+"</td>";
-				obj.upc+="<td>"+rs.getString(4)+"</td>";
-				
-			}
+			jsonXxml(1,rs);			
 			
 			return true;
 		}catch(Exception  e){logger.debug(e.toString());}
@@ -87,14 +115,14 @@ public class BaseController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
 		obj=new Product();
-
- 
+		 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		Boolean op=false;
 //		create(); //make the table if it doesnt exist
 		op=read();
 		model.addAttribute("op",op);
 		model.addAttribute("glob",obj.upc);
+		model.addAttribute("json",obj.manf);
 		
 		
 		return VIEW_INDEX;
@@ -119,6 +147,7 @@ public class BaseController {
 		op=read(UPC,Manf,Brand,Size);
 		model.addAttribute("op",op);
 		model.addAttribute("glob",obj.upc);
+		model.addAttribute("json",obj.manf);
 		
 		return VIEW_INDEX;
  
