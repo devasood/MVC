@@ -23,7 +23,7 @@ public class BaseController {
 			Class.forName("org.postgresql.Driver");
 			Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","sandbox");
 			Statement st=con.createStatement();
-			String sql="create table if not exists product(upc bigint primary key,manufacturer varchar(50),brand varchar(50),size numeric);";
+			String sql="create table if not exists product(upc varchar(14) primary key,manufacturer varchar(50),brand varchar(50),size numeric);";
 			st.execute(sql);
 			return true;
 			
@@ -52,8 +52,16 @@ public class BaseController {
 			Statement st=con.createStatement();
 			String sql="select * from product;";
 			ResultSet rs= st.executeQuery(sql);
+			
 			while(rs.next())
-			obj.upc+=rs.getString(1)+",";
+			{	
+				obj.upc+="<tr><td>"+rs.getString(1)+"</td>";
+				obj.upc+="<td>"+rs.getString(2)+"</td>";
+				obj.upc+="<td>"+rs.getString(3)+"</td>";
+				obj.upc+="<td>"+rs.getString(4)+"</td>";
+				
+			}
+			
 			return true;
 		}catch(Exception  e){logger.debug(e.toString());}
 		return false;
@@ -61,7 +69,7 @@ public class BaseController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
-		
+		obj=new Product();
 
  
 		// Spring uses InternalResourceViewResolver and return back index.jsp
@@ -69,7 +77,7 @@ public class BaseController {
 //		create(); //make the table if it doesnt exist
 		op=read();
 		model.addAttribute("op",op);
-		model.addAttribute("upc",obj.upc);
+		model.addAttribute("glob",obj.upc);
 		
 		return VIEW_INDEX;
  
@@ -77,6 +85,7 @@ public class BaseController {
  
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
 	public String welcomeName(@PathVariable String name, ModelMap model) {
+		obj=new Product();
 // 
 //		model.addAttribute("message", "Welcome " + name);
 //		model.addAttribute("counter", ++counter);
