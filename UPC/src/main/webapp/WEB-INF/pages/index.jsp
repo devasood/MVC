@@ -3,7 +3,7 @@
 
 Search by:<br>
 
-<form action="form.asp" method="get">
+<form action="form.jsp" method="get">
 <table style="width:100%">
 <tr><td>UPC:</td><td><input type="text" name="UPC" size="35"></td></tr>
 <tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" size="35"></td></tr>
@@ -15,7 +15,7 @@ Search by:<br>
 
 <br>Insert into table:<br>
 
-<form action="formI.asp" method="post">
+<form action="formI.jsp" method="post">
 <table style="width:100%">
 <tr><td>UPC:</td><td><input type="text" name="UPCI" size="35"></td></tr>
 <tr><td>Manufacturer:</td><td><input type="text" name="ManufacturerI" size="35"></td></tr>

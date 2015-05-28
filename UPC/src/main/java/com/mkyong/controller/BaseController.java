@@ -1,8 +1,9 @@
 package com.mkyong.controller;
  
-
-import java.sql.*;
-
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,7 @@ public class BaseController {
         
     }
 	
-	public static void convertToXML(ResultSet rs) throws SQLException
+	public static void convertToXML(ResultSet rs) throws Exception
 	{
 		while(rs.next())
 		{	
@@ -90,7 +91,7 @@ public class BaseController {
 					+ "brand like '"+brand+"' and size like '"+size+"';";
 			ResultSet rs= st.executeQuery(sql);
 			
-		jsonXxml(1,rs);
+		jsonXxml(counter,rs);
 		
 			return true;
 		}catch(Exception  e){logger.debug(e.toString());}
@@ -105,7 +106,7 @@ public class BaseController {
 			String sql="select * from product;";
 			ResultSet rs= st.executeQuery(sql);
 			
-			jsonXxml(1,rs);			
+			jsonXxml(counter,rs);			
 			
 			return true;
 		}catch(Exception  e){logger.debug(e.toString());}
@@ -129,7 +130,7 @@ public class BaseController {
  
 	}
  
-	@RequestMapping(value = "/form.asp", method = RequestMethod.GET)
+	@RequestMapping(value = "/form.jsp", method = RequestMethod.GET)
 	public String welcomeName(ModelMap model,
 			@RequestParam(value="UPC") String UPC,
 			@RequestParam(value="Manufacturer") String Manf,

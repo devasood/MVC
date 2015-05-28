@@ -55,7 +55,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("Search by:<br>\n");
       out.write("\n");
-      out.write("<form action=\"form.asp\" method=\"get\">\n");
+      out.write("<form action=\"form.jsp\" method=\"get\">\n");
       out.write("<table style=\"width:100%\">\n");
       out.write("<tr><td>UPC:</td><td><input type=\"text\" name=\"UPC\" size=\"35\"></td></tr>\n");
       out.write("<tr><td>Manufacturer:</td><td><input type=\"text\" name=\"Manufacturer\" size=\"35\"></td></tr>\n");
@@ -67,7 +67,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("<br>Insert into table:<br>\n");
       out.write("\n");
-      out.write("<form action=\"formI.asp\" method=\"post\">\n");
+      out.write("<form action=\"formI.jsp\" method=\"post\">\n");
       out.write("<table style=\"width:100%\">\n");
       out.write("<tr><td>UPC:</td><td><input type=\"text\" name=\"UPCI\" size=\"35\"></td></tr>\n");
       out.write("<tr><td>Manufacturer:</td><td><input type=\"text\" name=\"ManufacturerI\" size=\"35\"></td></tr>\n");
