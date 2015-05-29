@@ -1,6 +1,6 @@
 <html>
 <body>
-Search by:<br>
+<h2>Search a range of products by:<h2>
 <form action="search" method="get">
 <table style="width:100%">
 <tr><td>UPC:</td><td><input type="text" name="UPC" size="35"></td></tr>

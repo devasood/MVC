@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,10 @@ public class BaseController {
 	
 	private String app="APP";
 	private String backlink="<a href=\"/"+app+"/\">Go back</a>";
+	private Configuration configuration=new Configuration();	
+	private SessionFactory sessionFactory=configuration.configure("hibernate.cfg.xml")
+			.buildSessionFactory(new StandardServiceRegistryBuilder()
+			.applySettings(configuration.getProperties()).build());
 	
 	private void insertValues(String a,String b,String c,String d)
 	{
@@ -37,26 +42,19 @@ public class BaseController {
 		product.setBrand(c);
 		product.setSize(d);
 		
-		Configuration configuration=new Configuration();
-		configuration.setProperty("hibernate.connection.driver_class","org.postgresql.Driver");		
-		configuration.setProperty("hibernate.connection.url","jdbc:postgresql://localhost/postgres");
-		configuration.setProperty("hibernate.connection.username","postgres");
-		configuration.setProperty("hibernate.connection.password","sandbox");
-		configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-		configuration.setProperty("connection.pool_size","1");
-		configuration.setProperty("cache.provider_class","org.hibernate.cache.NoCacheProvider");
-        configuration.setProperty("show_sql","true");
-        configuration.setProperty("hibernate.hbm2ddl.auto","update");
 		
-		
-		SessionFactory sessionFactory=configuration.configure()
-				.buildSessionFactory(new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties()).build());
 		
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(product);
 		session.getTransaction().commit();
+	}
+	
+	private JSONObject searchValues(String a,String b,String c,String d)
+	{
+		JSONObject json=new JSONObject();
+		
+		return json;
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -95,7 +93,9 @@ public class BaseController {
 	@RequestParam(value="Manufacturer") String Manf,
 	@RequestParam(value="Brand") String Brand,
 	@RequestParam(value="Size") String Size)
-	{
+{		
+		JSONObject result=searchValues(UPC,Manf,Brand,Size);
+		
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
 		return "search";		
@@ -121,6 +121,7 @@ public class BaseController {
 		
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
+		model.addAttribute("message","Page does not exist.");
 		return "redirect"; 
 	}
  

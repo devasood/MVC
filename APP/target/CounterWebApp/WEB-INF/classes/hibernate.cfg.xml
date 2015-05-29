@@ -14,6 +14,6 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl">update</property>
         
-        <mapping class="Product"/>
+        <mapping class="com.controller.Product"/>
     </session-factory>
 </hibernate-configuration>
