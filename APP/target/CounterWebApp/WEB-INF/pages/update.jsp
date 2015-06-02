@@ -4,7 +4,7 @@
 <form action="update.do" method="get">
 <table style="width:70%">
 <tr><th>Column</th><th>Old Value</th><th>New Value</th></tr>
-<tr><td>UPC:</td><td><input type="text" name="UPC" size="35"></td><td><input type="text" name="UPC" size="35"></td></tr>
+<tr><td>UPC:</td><td><input type="text" name="UPC" size="35"></td><td><input type="text" name="UPC2" size="35"></td></tr>
 <tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" size="35"></td><td><input type="text" name="Manufacturer2" size="35"></td></tr>
 <tr><td>Brand:</td><td><input type="text" name="Brand" size="35"></td><td><input type="text" name="Brand2" size="35"></td></tr>
 <tr><td>Length:</td><td><input type="text" name="Length" size="35"></td><td><input type="text" name="Length2" size="35"></td></tr>

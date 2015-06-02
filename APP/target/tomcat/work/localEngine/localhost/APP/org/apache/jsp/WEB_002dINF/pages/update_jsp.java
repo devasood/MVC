@@ -53,10 +53,10 @@ public final class update_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\r\n");
       out.write("<body>\r\n");
       out.write("<h1>Update:</h1><br>\r\n");
-      out.write("<form action=\"search\" method=\"get\">\r\n");
+      out.write("<form action=\"update.do\" method=\"get\">\r\n");
       out.write("<table style=\"width:70%\">\r\n");
       out.write("<tr><th>Column</th><th>Old Value</th><th>New Value</th></tr>\r\n");
-      out.write("<tr><td>UPC:</td><td><input type=\"text\" name=\"UPC\" size=\"35\"></td><td><input type=\"text\" name=\"UPC\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>UPC:</td><td><input type=\"text\" name=\"UPC\" size=\"35\"></td><td><input type=\"text\" name=\"UPC2\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Manufacturer:</td><td><input type=\"text\" name=\"Manufacturer\" size=\"35\"></td><td><input type=\"text\" name=\"Manufacturer2\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Brand:</td><td><input type=\"text\" name=\"Brand\" size=\"35\"></td><td><input type=\"text\" name=\"Brand2\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Length:</td><td><input type=\"text\" name=\"Length\" size=\"35\"></td><td><input type=\"text\" name=\"Length2\" size=\"35\"></td></tr>\r\n");

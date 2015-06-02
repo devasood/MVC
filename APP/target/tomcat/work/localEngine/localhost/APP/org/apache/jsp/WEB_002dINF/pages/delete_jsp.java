@@ -62,8 +62,8 @@ public final class delete_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<tr><td>Height:</td><td><input type=\"text\" name=\"Height\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Width:</td><td><input type=\"text\" name=\"Width\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Weight:</td><td><input type=\"text\" name=\"Weight\" size=\"35\"></td></tr>\r\n");
-      out.write("<tr><td>Type:</td><td><input type=\"text\" name=\"Type\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Size:</td><td><input type=\"text\" name=\"Size\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Type:</td><td><input type=\"text\" name=\"Type\" size=\"35\"></td></tr>\r\n");
       out.write("</table>\r\n");
       out.write("<button type=\"submit\" value=\"submit\">Delete</Button> <button type=\"reset\" value=\"reset\">Reset</Button>\r\n");
       out.write("\r\n");

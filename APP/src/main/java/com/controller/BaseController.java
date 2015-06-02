@@ -71,7 +71,9 @@ public class BaseController {
 		session.close();
 	}
 	
-	private List<Product> searchValues(String page,String a,String b,String c,String d,String e,String f,String g,String h,String i)
+	private List<Product> searchValues(String page,String a,String b,String c,
+			String d,String e,String f,String g,String h,String i,
+			String k,String m,String n,String o,String p)
 	{	String ax[][]=new String[10][9];
 		Session session=sessionFactory.openSession();
 		
@@ -80,6 +82,11 @@ public class BaseController {
 		if(f.length()==0)f="0";
 		if(g.length()==0)g="0";
 		if(h.length()==0)h="0";
+		if(k.length()==0)k=""+Integer.MAX_VALUE;
+		if(m.length()==0)m=""+Integer.MAX_VALUE;
+		if(n.length()==0)n=""+Integer.MAX_VALUE;
+		if(o.length()==0)o=""+Integer.MAX_VALUE;
+		if(p.length()==0)p=""+Integer.MAX_VALUE;
 		
 		
 		Criteria criteria=session.createCriteria(Product.class);
@@ -91,7 +98,12 @@ public class BaseController {
 				.add(Restrictions.ge("dimension.width", Integer.parseInt(f)))
 				.add(Restrictions.ge("dimension.weight", Integer.parseInt(g)))
 				.add(Restrictions.ge("info.size", Integer.parseInt(h)))
-				.add(Restrictions.like("manufacturer", "%"+i+"%"))
+				.add(Restrictions.le("dimension.length", Integer.parseInt(k)))
+				.add(Restrictions.le("dimension.height", Integer.parseInt(m)))
+				.add(Restrictions.le("dimension.width", Integer.parseInt(n)))
+				.add(Restrictions.le("dimension.weight", Integer.parseInt(o)))
+				.add(Restrictions.le("info.size", Integer.parseInt(p)))
+				.add(Restrictions.like("info.type", "%"+i+"%"))
 				.addOrder(Order.asc("upc"));
 		
 		
@@ -108,9 +120,17 @@ public class BaseController {
 		
 	}
 	
-	private List<Product> searchValues(String a,String b,String c,String d,String e,String f,String g,String h,String i)
+	private List<Product> searchValues(String a,String b,String c,
+			String d,String e,String f,String g,String h,String i)
 	{	String ax[][]=new String[10][9];
 		Session session=sessionFactory.openSession();
+		
+		if(d.length()==0)d="0";
+		if(e.length()==0)e="0";
+		if(f.length()==0)f="0";
+		if(g.length()==0)g="0";
+		if(h.length()==0)h="0";
+		
 		
 		Criteria criteria=session.createCriteria(Product.class);
 		criteria.add(Restrictions.like("upc", "%"+a+"%"))
@@ -255,9 +275,15 @@ public class BaseController {
 		@RequestParam(value="Weight") String Weight,
 		@RequestParam(value="Size") String Size,
 		@RequestParam(value="Type") String Type,
+		@RequestParam(value="Length2") String Length2,
+		@RequestParam(value="Height2") String Height2,
+		@RequestParam(value="Width2") String Width2,
+		@RequestParam(value="Weight2") String Weight2,
+		@RequestParam(value="Size2") String Size2,
 		@RequestParam(value="Page") String Page)
 		{
-		List<Product> list=searchValues(Page,UPC,Manf,Brand,Length,Height,Width,Weight,Size,Type);
+		List<Product> list=searchValues(Page,UPC,Manf,Brand,Length,Height,Width,Weight,Size,Type,
+				Length2,Height2,Width2,Weight2,Size2);
 		for(int i=0;i<list.size();i++)
 			{String prod[]=list.get(i).getString().split(",");
 			for(int j=0;j<9;j++)
