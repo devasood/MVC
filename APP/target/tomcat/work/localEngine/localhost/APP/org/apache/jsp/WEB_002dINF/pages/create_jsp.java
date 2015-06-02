@@ -52,16 +52,28 @@ public final class create_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("<html>\r\n");
       out.write("<body>\r\n");
-      out.write("Search by:<br>\r\n");
+      out.write("Insert new Products:<br>\r\n");
       out.write("<form action=\"create.do\" method=\"get\">\r\n");
       out.write("<table style=\"width:100%\">\r\n");
       out.write("<tr><td>UPC:</td><td><input type=\"text\" name=\"UPC\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Manufacturer:</td><td><input type=\"text\" name=\"Manufacturer\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Brand:</td><td><input type=\"text\" name=\"Brand\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Length:</td><td><input type=\"text\" name=\"Length\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Height:</td><td><input type=\"text\" name=\"Height\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Width:</td><td><input type=\"text\" name=\"Width\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Weight:</td><td><input type=\"text\" name=\"Weight\" size=\"35\"></td></tr>\r\n");
+      out.write("<tr><td>Type:</td><td><input type=\"text\" name=\"Type\" size=\"35\"></td></tr>\r\n");
       out.write("<tr><td>Size:</td><td><input type=\"text\" name=\"Size\" size=\"35\"></td></tr>\r\n");
       out.write("</table>\r\n");
-      out.write("<button type=\"submit\" value=\"submit\">Search</Button> <button type=\"reset\" value=\"reset\">Reset</Button>\r\n");
+      out.write("<button type=\"submit\" value=\"submit\">Insert</Button> <button type=\"reset\" value=\"reset\">Reset</Button>\r\n");
       out.write("</form>\r\n");
+      out.write("\r\n");
+      out.write("<form action=\"create.random\" method=\"get\">\r\n");
+      out.write("<button type=\"submit\" value=\"submit\">InsertRandom</Button>\r\n");
+      out.write("</form>\r\n");
+      out.write("<br>");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${backlink}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

@@ -1,34 +1,43 @@
 package com.controller;
 
+
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 @Entity
 @Table(name="product_details")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Product {
 	@Id
-	@Column(name="upc")
 	private String upc;
-	@Column(name="manufacturer")
-	private String manf;
-	@Column(name="brand")
+	private String manufacturer;
 	private String brand;
-	@Column(name="size")
-	private String size;
+	@Embedded
+	Dimension dimension=new Dimension();
+	@Embedded
+	Info info=new Info();
 	
 	public String getUpc() {
 		return upc;
 	}
 	public void setUpc(String upc) {
 		this.upc = upc;
+	}	
+	public String getManufacturer() {
+		return manufacturer;
 	}
-	public String getManf() {
-		return manf;
-	}
-	public void setManf(String manf) {
-		this.manf = manf;
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 	public String getBrand() {
 		return brand;
@@ -36,12 +45,34 @@ public class Product {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public String getSize() {
-		return size;
+	public Dimension getDimension() {
+		return dimension;
 	}
-	public void setSize(String size) {
-		this.size = size;
+	public void setDimension(Dimension dimension) {
+		this.dimension = dimension;
 	}
+	public Info getInfo() {
+		return info;
+	}
+	public void setInfo(Info info) {
+		this.info = info;
+	}
+	
+	public String getString()
+	{
+		String prod="";
+		prod+=upc+",";
+		prod+=manufacturer+",";
+		prod+=brand+",";
+		prod+=dimension.getString()+",";
+		prod+=info.getString();
+		
+		return prod;
+		
+	}
+	
+	
+	
 	
 	
 

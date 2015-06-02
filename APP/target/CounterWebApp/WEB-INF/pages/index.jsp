@@ -1,6 +1,6 @@
 <html>
 <body>
-<h1>Welcome to thisApp:</h1>
+<h1>Welcome:</h1>
 <a href="/${APP}/create">Create</a><br><br>
 <a href="/${APP}/read">Read</a><br><br>
 <a href="/${APP}/update">Update</a><br><br>

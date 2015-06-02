@@ -34,6 +34,17 @@ public class Dimension {
 		this.weight = weight;
 	}
 	
+	public String getString()
+	{
+		String dim="";
+		dim+=length+",";
+		dim+=height+",";
+		dim+=width+",";
+		dim+=weight;
+		
+		return dim;
+	}
+	
 	
 
 }

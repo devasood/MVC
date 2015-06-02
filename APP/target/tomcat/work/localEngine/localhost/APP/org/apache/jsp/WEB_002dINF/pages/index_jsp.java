@@ -52,7 +52,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("<html>\n");
       out.write("<body>\n");
-      out.write("<h1>Welcome to thisApp:</h1>\n");
+      out.write("<h1>Welcome:</h1>\n");
       out.write("<a href=\"/");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${APP}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/create\">Create</a><br><br>\n");

@@ -20,6 +20,13 @@ public class Info {
 		this.type = type;
 	}
 
-	
+	public String getString()
+	{
+		String info="";
+		info+=size+",";
+		info+=type;
+		
+		return info;
+	}
 	
 }
