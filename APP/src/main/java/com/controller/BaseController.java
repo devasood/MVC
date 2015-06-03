@@ -9,11 +9,8 @@ package com.controller;
 //import org.slf4j.LoggerFactory;
 
 
-import java.io.File;
-import java.util.Collection;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 import org.hibernate.Criteria;
@@ -107,7 +104,7 @@ public class BaseController {
 				.addOrder(Order.asc("upc"));
 		
 		
-		criteria.setFirstResult(Integer.parseInt(page)*10);
+		criteria.setFirstResult((Integer.parseInt(page)-1)*10);
 		criteria.setFetchSize(10);
 		criteria.setCacheable(true);
 		
@@ -209,12 +206,7 @@ public class BaseController {
 		model.addAttribute("backlink",backlink);
 		return "create"; 
 	}
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(ModelMap model) {
-		model.addAttribute("APP",app);
-		model.addAttribute("backlink",backlink);
-		return "read"; 
-	}
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(ModelMap model) {
 		model.addAttribute("APP",app);
@@ -240,8 +232,16 @@ public class BaseController {
 		@RequestParam(value="Weight") String Weight,
 		@RequestParam(value="Size") String Size,
 		@RequestParam(value="Type") String Type)
+		
 	
 	{	
+//		System.out.println(request.getURI().toString());
+//		System.out.println(request.toString());
+//		System.out.println(request);
+//		System.out.println(request.getHeaders().toString());
+//		System.out.println(request.getMethod().toString());
+//		System.out.println(request.getURI().getQuery()+request.getURI().getFragment());
+//		System.out.println(request.getHeaders().keySet().toArray()[1]);
 		insertValues(UPC,Manf,Brand,Length,Height,Width,Weight,Size,Type);
 		
 		model.addAttribute("message","Inserted successfully");
@@ -264,7 +264,7 @@ public class BaseController {
 			return "redirect";		
 		}
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
+	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String searchResult(ModelMap model,
 		@RequestParam(value="UPC") String UPC,
 		@RequestParam(value="Manufacturer") String Manf,
@@ -291,7 +291,7 @@ public class BaseController {
 			}
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
-		return "read";		
+		return "index";		
 	}
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.GET)

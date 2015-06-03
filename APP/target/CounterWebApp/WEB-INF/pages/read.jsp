@@ -15,12 +15,15 @@
 <tr><td>Size:</td><td><input type="text" name="Size" size="35"></td><td><input type="text" name="Size2" size="35"></td></tr>
 <tr><td>Type:</td><td><input type="text" name="Type" size="35"></td></tr>
 </table>
-<input name="Page" value ="0" size="1">
-<button type="submit" value="submit">Search</Button> <button type="reset" value="reset">Reset</Button>
+<input type ="hidden"name="Page" value = "1" size="1">
+<a href="#search"><button type="submit" value="submit">Search</Button></a> 
+<button type="reset" value="reset">Reset</Button>
 
 </form>
+<input type="button" value="Here" style="border-style:none;" onClick="location.href = URL_add_parameter(location.href, 'Page', '1');" />
 
-Search Results:<br><br>
+
+<a name="search">Search Results:</a><br><br>
 
 
 <table style="width: 50%" border="1px">
@@ -36,6 +39,37 @@ Search Results:<br><br>
 <tr><td><a href="${app}${s80}">${s80}</td><td>${s81}</td><td>${s82}</td><td>${s83}</td><td>${s84}</td><td>${s85}</td><td>${s86}</td><td>${s87}</td><td>${s88}</td></tr>
 <tr><td><a href="${app}${s90}">${s90}</td><td>${s91}</td><td>${s92}</td><td>${s93}</td><td>${s94}</td><td>${s95}</td><td>${s96}</td><td>${s97}</td><td>${s98}</td></tr>
 </table>
+
+
+<script>
+var p=1;
+function URL_add_parameter(url, param, value){
+    var hash       = {};
+    var parser     = document.createElement('a');
+
+    parser.href    = url;
+
+    var parameters = parser.search.split(/\?|&/);
+
+    for(var i=0; i < parameters.length; i++) {
+        if(!parameters[i])
+            continue;
+
+        var ary      = parameters[i].split('=');
+        hash[ary[0]] = ary[1];
+    }
+
+    hash[param] = value;
+
+    var list = [];  
+    Object.keys(hash).forEach(function (key) {
+        list.push(key + '=' + hash[key]);
+    });
+
+    parser.search = '?' + list.join('&');
+    return parser.href;
+}
+</script>
 
 <br>
 ${backlink}
