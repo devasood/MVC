@@ -289,6 +289,7 @@ public class BaseController {
 			for(int j=0;j<9;j++)
 			model.addAttribute("s"+i+j,prod[j]);
 			}
+		model.addAttribute("currentPage",Page);
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
 		return "index";		
