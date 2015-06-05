@@ -16,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name="product_details")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Product {
 	@Id
 	private String upc;
