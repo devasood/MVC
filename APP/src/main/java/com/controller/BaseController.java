@@ -345,8 +345,22 @@ public class BaseController {
 		}
 		if(update!=null)
 		{/*Updates a record*/
+			String data[]=update.split(";");
+					
 			Session session=sessionFactory.openSession();
 			session.beginTransaction();
+			
+			Product product=(Product)session.get(Product.class, data[1]);
+			switch(Integer.parseInt(data[0]))
+			{	
+				case 1:
+					product.setManufacturer(data[2]);
+					break;
+				case 2:
+					product.setBrand(data[2]);
+					break;
+			}
+			session.update(product);
 			
 			session.getTransaction().commit();
 			session.close();

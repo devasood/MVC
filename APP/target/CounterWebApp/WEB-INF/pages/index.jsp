@@ -12,6 +12,13 @@ var message="${message}";
 if(message.length>0)
 alert("${message}");
 
+function edit(column,upc,oldvalue) {
+	var newvalue=prompt("Enter the new value:",oldvalue);
+	column+=";"+upc+";"+newvalue
+	location.href = URL_add_parameter(location.href, 'update', column);
+			
+}
+
 function next() {        
 
 if(no_of_pages>1.1)
@@ -143,9 +150,9 @@ function addResults() {
 		
 }
 
-function deleteRec(a)
+function deleteRec(upc)
 {	if(confirm('Are you sure you want to delete?'))
-   location.href = URL_add_parameter(location.href, 'Delete', a);
+   location.href = URL_add_parameter(location.href, 'Delete', upc);
 			
 }
 
