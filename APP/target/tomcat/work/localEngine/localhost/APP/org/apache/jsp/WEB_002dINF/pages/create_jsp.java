@@ -149,18 +149,6 @@ public final class create_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</td><td><div class=\"alert\" id=\"demo1\"></div></td></td></tr>\r\n");
       out.write("<tr><td>Brand:</td><td><input id=\"brand\" type=\"text\" name=\"Brand\" size=\"35\" required placeholder=\"Lays\">\r\n");
       out.write("</td><td><div class=\"alert\" id=\"demo2\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Length:</td><td><input id=\"length\" type=\"number\" min=\"0\" name=\"Length\" size=\"35\" value=\"0\" readonly placeholder=\"5\" >\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo3\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Height:</td><td><input id=\"height\" type=\"number\" min=\"0\" name=\"Height\" size=\"35\" value=\"0\" readonly placeholder=\"12\">\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo4\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Width:</td><td><input id=\"width\" type=\"number\" min=\"0\" name=\"Width\" size=\"35\" value=\"0\" readonly placeholder=\"7\">\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo5\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Weight:</td><td><input id=\"weight\" type=\"number\" min=\"0\" name=\"Weight\" size=\"35\" value=\"0\" readonly placeholder=\"60\">\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo6\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Size:</td><td><input id=\"size\" type=\"number\" min=\"0\" name=\"Size\" size=\"35\" value=\"0\" readonly placeholder=\"235\">\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo7\"></div></td></td></tr>\r\n");
-      out.write("<tr><td>Type:</td><td><input id=\"type\" type=\"text\" name=\"Type\" size=\"35\" value=\"0\" readonly placeholder=\"Eatables\">\r\n");
-      out.write("</td><td><div class=\"alert\" id=\"demo8\"></div></td></td></tr>\r\n");
       out.write("</table>\r\n");
       out.write("</div>\r\n");
       out.write("<button type=\"submit\" value=\"submit\" onClick=\"return myFunction();\">Insert</Button> <button type=\"reset\" value=\"reset\">Reset</Button>\r\n");

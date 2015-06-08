@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <head>
+<script src="jquery-1.11.3.min.js"></script>
 <meta charset="ISO-8859-1">
 </head>
 <body onLoad="addResults();next();">
 
-<script type="text/javascript">
+<script >
 
 var clicks = parseInt("${currentPage}");
 var no_of_pages=parseInt("${no_of_records}")/10+1;    
 var message="${message}";
+var stop=1;
+
 if(message.length>0)
 alert("${message}");
 
 
 
-function edit(column,upc,oldvalue) {
-	var newvalue=prompt("Enter the new value:",oldvalue);
-	column+=";"+upc+";"+newvalue
-	
-	location.href = URL_add_parameter(location.href, 'Update', column);
-			
-}
-
 function next() {        
+
+document.getElementById("jump").setAttribute("max",parseInt(no_of_pages));
 
 if(no_of_pages>1.1)
 document.getElementById("test").innerHTML=parseInt(no_of_pages*10-10)+" records displayed in ${stats}";
@@ -71,6 +68,10 @@ document.getElementById("test").innerHTML=(no_of_pages)*10-10+" record displayed
     document.getElementById("ten").innerHTML = "";
     if(no_of_pages>=clicks+10)    
     clicks += 10;
+    if(stop>1)
+    goToPage(document.getElementById("one").innerHTML);
+    else
+    stop=2;
 };
     
 function prev() {
@@ -118,35 +119,36 @@ function prev() {
     document.getElementById("ten").innerHTML = clicks+9;
     else
     document.getElementById("ten").innerHTML = "";
+    goToPage(document.getElementById("one").innerHTML);
 };    
 
 function addResults() {
 	
 	var sr=document.getElementById("searchResults");
 	var empty="";
-	var text="<table id=\"result\"><tr><th>UPC</th><th>Manufacturer</th><th>Brand</th><th>Length</th><th>Height</th><th>Width</th><th>Weight</th><th>Size</th><th>Type</th><th>Update</th><th>Delete</th></tr>";
+	var text="<table id=\"result\"><tr><th>UPC</th><th>Manufacturer</th><th>Brand</th><th>Update</th><th>Delete</th></tr>";
 		if("${s00}".length>0)
-		text+="<tr><td>${s00}</td><td><a class=\"linksData\" onclick=\"edit(1,${s00},${s01})\">${s01}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s00},${s02})\">${s02}</a></td><td>${s03}</td><td>${s04}</td><td>${s05}</td><td>${s06}</td><td>${s07}</td><td>${s08}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s00})\">Delete</a></td></tr>";
+		text+="<tr><td>${s00}</td><td>${s01}</td><td>${s02}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s00})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s00})\">Delete</a></td></tr>";
 		else
 		empty="No Results to display."
 		if("${s10}".length>0)
-		text+="<tr><td>${s10}</td><td><a class=\"linksData\" onclick=\"edit(1,${s10},${s11})\">${s11}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s10},${s12})\">${s12}</a></td><td>${s13}</td><td>${s14}</td><td>${s15}</td><td>${s16}</td><td>${s17}</td><td>${s18}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s10})\">Delete</a></td></tr>";
+		text+="<tr><td>${s10}</td><td>${s11}</td><td>${s12}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s10})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s10})\">Delete</a></td></tr>";
 		if("${s20}".length>0)
-		text+="<tr><td>${s20}</td><td><a class=\"linksData\" onclick=\"edit(1,${s20},${s21})\">${s21}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s20},${s22})\">${s22}</a></td><td>${s23}</td><td>${s24}</td><td>${s25}</td><td>${s26}</td><td>${s27}</td><td>${s28}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s20})\">Delete</a></td></tr>";
+		text+="<tr><td>${s20}</td><td>${s21}</td><td>${s22}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s20})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s20})\">Delete</a></td></tr>";
 		if("${s30}".length>0)
-		text+="<tr><td>${s30}</td><td><a class=\"linksData\" onclick=\"edit(1,${s30},${s31})\">${s31}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s30},${s32})\">${s32}</a></td><td>${s33}</td><td>${s34}</td><td>${s35}</td><td>${s36}</td><td>${s37}</td><td>${s38}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s30})\">Delete</a></td></tr>";
+		text+="<tr><td>${s30}</td><td>${s31}</td><td>${s32}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s30})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s30})\">Delete</a></td></tr>";
 		if("${s40}".length>0)
-		text+="<tr><td>${s40}</td><td><a class=\"linksData\" onclick=\"edit(1,${s40},${s41})\">${s41}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s40},${s42})\">${s42}</a></td><td>${s43}</td><td>${s44}</td><td>${s45}</td><td>${s46}</td><td>${s47}</td><td>${s48}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s40})\">Delete</a></td></tr>";
+		text+="<tr><td>${s40}</td><td>${s41}</td><td>${s42}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s40})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s40})\">Delete</a></td></tr>";
 		if("${s50}".length>0)
-		text+="<tr><td>${s50}</td><td><a class=\"linksData\" onclick=\"edit(1,${s50},${s51})\">${s51}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s50},${s52})\">${s52}</a></td><td>${s53}</td><td>${s54}</td><td>${s55}</td><td>${s56}</td><td>${s57}</td><td>${s58}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s50})\">Delete</a></td></tr>";
+		text+="<tr><td>${s50}</td><td>${s51}</td><td>${s52}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s50})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s50})\">Delete</a></td></tr>";
 		if("${s60}".length>0)
-		text+="<tr><td>${s60}</td><td><a class=\"linksData\" onclick=\"edit(1,${s60},${s61})\">${s61}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s60},${s62})\">${s62}</a></td><td>${s63}</td><td>${s64}</td><td>${s65}</td><td>${s66}</td><td>${s67}</td><td>${s68}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s60})\">Delete</a></td></tr>";
+		text+="<tr><td>${s60}</td><td>${s61}</td><td>${s62}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s60})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s60})\">Delete</a></td></tr>";
 		if("${s70}".length>0)
-		text+="<tr><td>${s70}</td><td><a class=\"linksData\" onclick=\"edit(1,${s70},${s71})\">${s71}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s70},${s72})\">${s72}</a></td><td>${s73}</td><td>${s74}</td><td>${s75}</td><td>${s76}</td><td>${s77}</td><td>${s78}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s70})\">Delete</a></td></tr>";
+		text+="<tr><td>${s70}</td><td>${s71}</td><td>${s72}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s70})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s70})\">Delete</a></td></tr>";
 		if("${s80}".length>0)
-		text+="<tr><td>${s80}</td><td><a class=\"linksData\" onclick=\"edit(1,${s80},${s81})\">${s81}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s80},${s82})\">${s82}</a></td><td>${s83}</td><td>${s84}</td><td>${s85}</td><td>${s86}</td><td>${s87}</td><td>${s88}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s80})\">Delete</a></td></tr>";
+		text+="<tr><td>${s80}</td><td>${s81}</td><td>${s82}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s80})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s80})\">Delete</a></td></tr>";
 		if("${s90}".length>0)
-		text+="<tr><td>${s90}</td><td><a class=\"linksData\" onclick=\"edit(1,${s90},${s91})\">${s91}</a></td><td><a class=\"linksData\" onclick=\"edit(2,${s90},${s92})\">${s92}</a></td><td>${s93}</td><td>${s94}</td><td>${s95}</td><td>${s96}</td><td>${s97}</td><td>${s98}</td><td><a href=\"/${APP}/update\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s90})\">Delete</a></td></tr>";
+		text+="<tr><td>${s90}</td><td>${s91}</td><td>${s92}</td><td><a class=\"linksTable\" onClick=\"updateRec(${s90})\">Update</a></td><td><a class=\"linksTable\" onClick=\"deleteRec(${s90})\">Delete</a></td></tr>";
 		text+="</table>";
 	sr.innerHTML+=text;
 	sr.innerHTML+=empty;
@@ -156,6 +158,16 @@ function addResults() {
 function deleteRec(upc)
 {	if(confirm('Are you sure you want to delete?'))
    location.href = URL_add_parameter(location.href, 'Delete', upc);
+			
+}
+
+
+
+
+function updateRec(upc)
+{	var x=URL_add_parameter("/${APP}/update?", 'UPC', upc);
+	x=URL_add_parameter(x, 'src', encodeURIComponent(location.href));
+   	location.href = x;
 			
 }
 
@@ -192,6 +204,11 @@ function URL_add_parameter(url, param, value){
 </script>
 
 <style type="text/css">
+#one {
+	color:black;
+	font-weight:bold;
+}
+
 a.links {
 	float: left;
 	margin-top: 15px;
@@ -214,10 +231,6 @@ a.linksTable {
 a.links:hover,a.linksTable:hover { 
     text-decoration:underline;
 }
-a.linksData:hover {
-	color: blue;
-	text-decoration:underline;
-}
 body {
 	padding-left:1em
 	
@@ -231,8 +244,14 @@ button {
 }
 
 table,th,td {
-	border-collapse: collapse;	
-	border: 1px solid green;
+	border-collapse: collapse;
+	border:1px solid green;
+}
+
+table.links,th.links,td.links {
+	border-collapse: collapse;
+	border:0px;
+	padding:10px;
 }
 
 th {padding: 5px;
@@ -261,25 +280,16 @@ div.links {
 
 <h2>Search repository by:</h2>
 
-<form action="index#searchResults" method="get">
+<form id="search" action="index#searchResults" method="get">
 
 <table style="width:40%">
 
-<tr><td>UPC:</td><td><input type="text" name="UPC" size="35" ></td><td></td></tr>
-<tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" size="35"></td><td></td></tr>
-<tr><td>Brand:</td><td><input type="text" name="Brand" size="35"></td><td></td></tr>
-<tr><th>Dimensions</th><th>Min Value</th><th>Max Value</th></tr>
-<tr><td>Length:</td><td><input type="number" name="Length" size="35" readonly></td><td><input type="number" name="Length2" size="35" readonly></td></tr>
-<tr><td>Height:</td><td><input type="number" name="Height" size="35" readonly></td><td><input type="number" name="Height2" size="35" readonly></td></tr>
-<tr><td>Width:</td><td><input type="number"  name="Width"  size="35" readonly></td><td><input type="number" name="Width2"  size="35" readonly></td></tr>
-<tr><td>Weight:</td><td><input type="number" name="Weight" size="35" readonly></td><td><input type="number" name="Weight2" size="35" readonly></td></tr>
-<tr><th>Info</th><th>Min Value</th><th>Max Value</th></tr>
-<tr><td>Size:</td><td><input type="number" name="Size" size="35" readonly></td><td><input type="number" name="Size2" size="35" readonly></td></tr>
-<tr><td>Type:</td><td><input type="text" name="Type" size="35" readonly></td><td></td></tr>
+<tr><td>UPC:</td><td><input type="text" name="UPC" size="35" ></td></tr>
+<tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" size="35"></td></tr>
+<tr><td>Brand:</td><td><input type="text" name="Brand" size="35"></td></tr>
 
 </table>
 
-<input type ="hidden"name="Page" value = "1" size="1">
 <button type="submit" value="submit" >Search</Button>
 <button type="reset" value="reset" >Reset</Button>
 
@@ -290,24 +300,29 @@ div.links {
 <h2>Search Results:</h2>
 <div id="searchResults" ></div>
 
-<div class="links"><a id="prev" class="links" onClick="prev()"><<</a></div>
-<div id="nums" class="links">
 
-<a id="one" class="links" onClick="goToPage(this.innerHTML)">1</a>
-<a id="two" class="links" onClick="goToPage(this.innerHTML)">2</a>
-<a id="three" class="links" onClick="goToPage(this.innerHTML)">3</a>
-<a id="four" class="links" onClick="goToPage(this.innerHTML)">4</a>
-<a id="five" class="links" onClick="goToPage(this.innerHTML)">5</a>
-<a id="six" class="links" onClick="goToPage(this.innerHTML)">6</a>
-<a id="seven" class="links" onClick="goToPage(this.innerHTML)">7</a>
-<a id="eight" class="links" onClick="goToPage(this.innerHTML)">8</a>
-<a id="nine" class="links" onClick="goToPage(this.innerHTML)">9</a>
-<a id="ten" class="links" onClick="goToPage(this.innerHTML)">10</a> 
-
-</div>    
-<div class="links"><a id="next" class="links" onClick="next()">>></a></div>
+<table class="links" >
+<tr>
+<td class="links"><a id="first" class="linksTable" onClick="goToPage(1)">First</a></td>
+<td class="links"><a id="prev" class="linksTable" onClick="prev()"><<</a></td>
+<td class="links"><a id="one" class="linksTable" onClick="goToPage(this.innerHTML)">1</a></td>
+<td class="links"><a id="two" class="linksTable" onClick="goToPage(this.innerHTML)">2</a></td>
+<td class="links"><a id="three" class="linksTable" onClick="goToPage(this.innerHTML)">3</a></td>
+<td class="links"><a id="four" class="linksTable" onClick="goToPage(this.innerHTML)">4</a></td>
+<td class="links"><a id="five" class="linksTable" onClick="goToPage(this.innerHTML)">5</a></td>
+<td class="links"><a id="six" class="linksTable" onClick="goToPage(this.innerHTML)">6</a></td>
+<td class="links"><a id="seven" class="linksTable" onClick="goToPage(this.innerHTML)">7</a></td>
+<td class="links"><a id="eight" class="linksTable" onClick="goToPage(this.innerHTML)">8</a></td>
+<td class="links"><a id="nine" class="linksTable" onClick="goToPage(this.innerHTML)">9</a></td>
+<td class="links"><a id="ten" class="linksTable" onClick="goToPage(this.innerHTML)">10</a></td>
+<td class="links"><a id="next" class="linksTable" onClick="next()">>></a></td>
+<td class="links"><a id="last" class="linksTable" onClick="goToPage(parseInt(no_of_pages))">Last</a></td>
+<td class="links">Goto Page: <input id="jump" name="Page" form="search" type="number" value="1" min="1"max="" /></td>
+</tr>
+</table>
 
 <p id="test"></p>
+<p id="test2"></p>
 <br><br><br>
 ${backlink}
 <br><br>

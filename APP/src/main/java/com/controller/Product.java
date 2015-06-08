@@ -22,10 +22,6 @@ public class Product {
 	private String upc;
 	private String manufacturer;
 	private String brand;
-	@Embedded
-	Dimension dimension=new Dimension();
-	@Embedded
-	Info info=new Info();
 	
 	public String getUpc() {
 		return upc;
@@ -45,27 +41,15 @@ public class Product {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public Dimension getDimension() {
-		return dimension;
-	}
-	public void setDimension(Dimension dimension) {
-		this.dimension = dimension;
-	}
-	public Info getInfo() {
-		return info;
-	}
-	public void setInfo(Info info) {
-		this.info = info;
-	}
+	
 	
 	public String getString()
 	{
 		String prod="";
 		prod+=upc+",";
 		prod+=manufacturer+",";
-		prod+=brand+",";
-		prod+=dimension.getString()+",";
-		prod+=info.getString();
+		prod+=brand;
+		
 		
 		return prod;
 		
