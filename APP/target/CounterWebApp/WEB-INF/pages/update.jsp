@@ -34,21 +34,21 @@ div.round{
 }
 </style>
 <h2>Update:</h2>
-<form action="update.do" method="get">
+<form action="update.do" method="POST">
 <div class="round">
 <table >
 
-<tr><th>Column</th><th>Old Value</th><th>New Value</th></tr>
+<tr><th>Column</th><th>Value</th></tr>
 <tr><td>UPC:</td><td><input type="text" name="UPC" value="${upc}" size="35" ></td></tr>
-<tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" value="${manufacturer}" size="35" readonly></td><td><input autofocus type="text" name="Manufacturer2" size="35"></td></tr>
-<tr><td>Brand:</td><td><input type="text" name="Brand" value="${brand}" size="35" readonly></td><td><input type="text" name="Brand2" size="35"></td></tr>
+<tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" value="${manufacturer}" size="35"  autofocus></td></tr>
+<tr><td>Brand:</td><td><input type="text" name="Brand" value="${brand}" size="35" ></td></tr>
 </table>
 </div>
 <input type="hidden" id="src" name="src" value="" />
 <button type="submit" value="submit">Update</Button> <button type="reset" value="reset">Reset</Button>
 
 </form>
-<p id="test">type</p>
+<p id="test"></p>
 <br><br><br>
 <a href="${src}">Go Back</a>
 </body>

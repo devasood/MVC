@@ -57,13 +57,7 @@ public final class create_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<body>\r\n");
       out.write("\r\n");
       out.write("<script type=\"text/javascript\">\r\n");
-      out.write("function f(al) {\r\n");
-      out.write("\tvar inpObj= document.getElementById(\"upc\");\r\n");
-      out.write("\tif (inpObj.checkValidity() == false) \r\n");
-      out.write("        document.getElementById(\"demo\").innerHTML = \"*\"+inpObj.validationMessage;\r\n");
-      out.write("    else\r\n");
-      out.write("        document.getElementById(\"demo\").innerHTML =\"\";\r\n");
-      out.write("}\r\n");
+      out.write("\r\n");
       out.write("function myFunction() {\r\n");
       out.write("    var inpObj = document.getElementById(\"upc\");\r\n");
       out.write("    if (inpObj.checkValidity() == false) \r\n");
@@ -140,7 +134,7 @@ public final class create_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("<h2>Insert new Products:</h2>\r\n");
-      out.write("<form action=\"create.do\" method=\"get\">\r\n");
+      out.write("<form action=\"create.do\" method=\"put\">\r\n");
       out.write("<div class=\"round\">\r\n");
       out.write("<table >\r\n");
       out.write("<tr><td>UPC:</td><td><input id=\"upc\" type=\"text\" name=\"UPC\" size=\"35\" autofocus required placeholder=\"100066\" >\r\n");
@@ -154,9 +148,12 @@ public final class create_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<button type=\"submit\" value=\"submit\" onClick=\"return myFunction();\">Insert</Button> <button type=\"reset\" value=\"reset\">Reset</Button>\r\n");
       out.write("</form>\r\n");
       out.write("\r\n");
-      out.write("<form action=\"create.random\" method=\"get\">\r\n");
+      out.write("<form action=\"create.random\" method=\"put\">\r\n");
       out.write("<button type=\"submit\" value=\"submit\">InsertRandomTestData</Button>\r\n");
       out.write("</form>\r\n");
+      out.write("\r\n");
+      out.write("<br><br>\r\n");
+      out.write("\r\n");
       out.write("<br><br><br>\r\n");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${backlink}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("\r\n");

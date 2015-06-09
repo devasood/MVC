@@ -34,7 +34,7 @@ div.round{
 }
 </style>
 <h2>Update:</h2>
-<form action="update.do" method="get">
+<form action="update.do" method="POST">
 <div class="round">
 <table >
 

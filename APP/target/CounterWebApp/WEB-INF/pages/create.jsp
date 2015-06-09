@@ -5,13 +5,7 @@
 <body>
 
 <script type="text/javascript">
-function f(al) {
-	var inpObj= document.getElementById("upc");
-	if (inpObj.checkValidity() == false) 
-        document.getElementById("demo").innerHTML = "*"+inpObj.validationMessage;
-    else
-        document.getElementById("demo").innerHTML ="";
-}
+
 function myFunction() {
     var inpObj = document.getElementById("upc");
     if (inpObj.checkValidity() == false) 
@@ -88,7 +82,7 @@ div.round{
 
 
 <h2>Insert new Products:</h2>
-<form action="create.do" method="get">
+<form action="create.do" method="put">
 <div class="round">
 <table >
 <tr><td>UPC:</td><td><input id="upc" type="text" name="UPC" size="35" autofocus required placeholder="100066" >
@@ -102,9 +96,12 @@ div.round{
 <button type="submit" value="submit" onClick="return myFunction();">Insert</Button> <button type="reset" value="reset">Reset</Button>
 </form>
 
-<form action="create.random" method="get">
+<form action="create.random" method="put">
 <button type="submit" value="submit">InsertRandomTestData</Button>
 </form>
+
+<br><br>
+
 <br><br><br>
 ${backlink}
 </body>

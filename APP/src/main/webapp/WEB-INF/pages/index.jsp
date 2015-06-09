@@ -1,11 +1,13 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <head>
-<script src="jquery-1.11.3.min.js"></script>
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+<script src="<c:url value="/resources/js/jquery-2.1.4.js" />"></script>
 <meta charset="ISO-8859-1">
 </head>
 <body onLoad="addResults();next();">
 
-<script >
+<script>
 
 var clicks = parseInt("${currentPage}");
 var no_of_pages=parseInt("${no_of_records}")/10+1;    
@@ -203,78 +205,6 @@ function URL_add_parameter(url, param, value){
 }
 </script>
 
-<style type="text/css">
-#one {
-	color:black;
-	font-weight:bold;
-}
-
-a.links {
-	float: left;
-	margin-top: 15px;
-	margin-right: 20px;    
-    display:inline-block;
-    border-style:none;
-    font-size: 100%;
-    color: blue;
-    background-color: white;
-}
-a.linksTable {
-	float: left;
-	display:inline-block;
-    border-style:none;
-    font-size: 100%;
-    color: blue;
-    background-color: white;
-}
-
-a.links:hover,a.linksTable:hover { 
-    text-decoration:underline;
-}
-body {
-	padding-left:1em
-	
-}
-
-button {
-	float: left;
-	margin-right: 40px;
-	margin-top: 20px;
-	width=50px;height:30px
-}
-
-table,th,td {
-	border-collapse: collapse;
-	border:1px solid green;
-}
-
-table.links,th.links,td.links {
-	border-collapse: collapse;
-	border:0px;
-	padding:10px;
-}
-
-th {padding: 5px;
-    background-color: green;
-    color: white;
-}
-
-td {
-	text-align: left;
-    padding: 5px;
-    vertical-align: bottom;
-}
-
-div.links {
-	display:inline-block;
-	height:40px;
-	max-width:60%;
-	overflow: visible;
-}
-#nums {
-	width:500px;
-}
-</style>
 
 <h2><a href="/${APP}/create">Insert a new Product</a></h2>
 

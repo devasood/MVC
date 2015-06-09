@@ -88,7 +88,7 @@ public final class update_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("}\r\n");
       out.write("</style>\r\n");
       out.write("<h2>Update:</h2>\r\n");
-      out.write("<form action=\"update.do\" method=\"get\">\r\n");
+      out.write("<form action=\"update.do\" method=\"POST\">\r\n");
       out.write("<div class=\"round\">\r\n");
       out.write("<table >\r\n");
       out.write("\r\n");

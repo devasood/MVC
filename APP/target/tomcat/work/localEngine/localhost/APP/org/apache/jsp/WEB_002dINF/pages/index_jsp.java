@@ -11,6 +11,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private static java.util.List _jspx_dependants;
 
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody;
+
   private javax.el.ExpressionFactory _el_expressionfactory;
   private org.apache.AnnotationProcessor _jsp_annotationprocessor;
 
@@ -19,11 +21,13 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
   }
 
   public void _jspInit() {
+    _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
     _jsp_annotationprocessor = (org.apache.AnnotationProcessor) getServletConfig().getServletContext().getAttribute(org.apache.AnnotationProcessor.class.getName());
   }
 
   public void _jspDestroy() {
+    _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -50,14 +54,22 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out = pageContext.getOut();
       _jspx_out = out;
 
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<head>\r\n");
-      out.write("<script src=\"jquery-1.11.3.min.js\"></script>\r\n");
+      out.write("<link href=\"");
+      if (_jspx_meth_c_005furl_005f0(_jspx_page_context))
+        return;
+      out.write("\" rel=\"stylesheet\">\r\n");
+      out.write("<script src=\"");
+      if (_jspx_meth_c_005furl_005f1(_jspx_page_context))
+        return;
+      out.write("\"></script>\r\n");
       out.write("<meta charset=\"ISO-8859-1\">\r\n");
       out.write("</head>\r\n");
       out.write("<body onLoad=\"addResults();next();\">\r\n");
       out.write("\r\n");
-      out.write("<script >\r\n");
+      out.write("<script>\r\n");
       out.write("\r\n");
       out.write("var clicks = parseInt(\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${currentPage}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
@@ -387,78 +399,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("}\r\n");
       out.write("</script>\r\n");
       out.write("\r\n");
-      out.write("<style type=\"text/css\">\r\n");
-      out.write("#one {\r\n");
-      out.write("\tcolor:black;\r\n");
-      out.write("\tfont-weight:bold;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("a.links {\r\n");
-      out.write("\tfloat: left;\r\n");
-      out.write("\tmargin-top: 15px;\r\n");
-      out.write("\tmargin-right: 20px;    \r\n");
-      out.write("    display:inline-block;\r\n");
-      out.write("    border-style:none;\r\n");
-      out.write("    font-size: 100%;\r\n");
-      out.write("    color: blue;\r\n");
-      out.write("    background-color: white;\r\n");
-      out.write("}\r\n");
-      out.write("a.linksTable {\r\n");
-      out.write("\tfloat: left;\r\n");
-      out.write("\tdisplay:inline-block;\r\n");
-      out.write("    border-style:none;\r\n");
-      out.write("    font-size: 100%;\r\n");
-      out.write("    color: blue;\r\n");
-      out.write("    background-color: white;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("a.links:hover,a.linksTable:hover { \r\n");
-      out.write("    text-decoration:underline;\r\n");
-      out.write("}\r\n");
-      out.write("body {\r\n");
-      out.write("\tpadding-left:1em\r\n");
-      out.write("\t\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("button {\r\n");
-      out.write("\tfloat: left;\r\n");
-      out.write("\tmargin-right: 40px;\r\n");
-      out.write("\tmargin-top: 20px;\r\n");
-      out.write("\twidth=50px;height:30px\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("table,th,td {\r\n");
-      out.write("\tborder-collapse: collapse;\r\n");
-      out.write("\tborder:1px solid green;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("table.links,th.links,td.links {\r\n");
-      out.write("\tborder-collapse: collapse;\r\n");
-      out.write("\tborder:0px;\r\n");
-      out.write("\tpadding:10px;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("th {padding: 5px;\r\n");
-      out.write("    background-color: green;\r\n");
-      out.write("    color: white;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("td {\r\n");
-      out.write("\ttext-align: left;\r\n");
-      out.write("    padding: 5px;\r\n");
-      out.write("    vertical-align: bottom;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
-      out.write("div.links {\r\n");
-      out.write("\tdisplay:inline-block;\r\n");
-      out.write("\theight:40px;\r\n");
-      out.write("\tmax-width:60%;\r\n");
-      out.write("\toverflow: visible;\r\n");
-      out.write("}\r\n");
-      out.write("#nums {\r\n");
-      out.write("\twidth:500px;\r\n");
-      out.write("}\r\n");
-      out.write("</style>\r\n");
       out.write("\r\n");
       out.write("<h2><a href=\"/");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${APP}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
@@ -525,5 +465,43 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     } finally {
       _jspxFactory.releasePageContext(_jspx_page_context);
     }
+  }
+
+  private boolean _jspx_meth_c_005furl_005f0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f0 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_005furl_005f0.setPageContext(_jspx_page_context);
+    _jspx_th_c_005furl_005f0.setParent(null);
+    // /WEB-INF/pages/index.jsp(4,12) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005furl_005f0.setValue("/resources/css/main.css");
+    int _jspx_eval_c_005furl_005f0 = _jspx_th_c_005furl_005f0.doStartTag();
+    if (_jspx_th_c_005furl_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f0);
+      return true;
+    }
+    _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f0);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_005furl_005f1(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f1 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_005furl_005f1.setPageContext(_jspx_page_context);
+    _jspx_th_c_005furl_005f1.setParent(null);
+    // /WEB-INF/pages/index.jsp(5,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005furl_005f1.setValue("/resources/js/jquery-2.1.4.js");
+    int _jspx_eval_c_005furl_005f1 = _jspx_th_c_005furl_005f1.doStartTag();
+    if (_jspx_th_c_005furl_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f1);
+      return true;
+    }
+    _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f1);
+    return false;
   }
 }

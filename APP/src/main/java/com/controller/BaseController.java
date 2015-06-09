@@ -128,6 +128,7 @@ public class BaseController {
 		return "create"; 
 	}
 	
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(ModelMap model,
 	@RequestParam(value="UPC") String upc,
@@ -151,7 +152,7 @@ public class BaseController {
 		return "update"; 
 	}
 	
-	@RequestMapping(value="/create.do", method=RequestMethod.GET)
+	@RequestMapping(value="/create.do", method=RequestMethod.PUT)
 	public String create(ModelMap model,
 		@RequestParam(value="UPC") String UPC,
 		@RequestParam(value="Manufacturer") String Manufacturer,
@@ -167,7 +168,7 @@ public class BaseController {
 		return "index";		
 	}
 	
-	@RequestMapping(value="/create.random", method=RequestMethod.GET)
+	@RequestMapping(value="/create.random", method=RequestMethod.PUT)
 	public String createRandom(ModelMap model)
 		
 		{	
@@ -222,7 +223,7 @@ public class BaseController {
 		return "index";		
 	}
 	
-	@RequestMapping(value="/update.do", method={RequestMethod.GET})
+	@RequestMapping(value="/update.do", method={RequestMethod.POST})
 	public String updateValues(ModelMap model,
 			@RequestParam(value="UPC") String upc,
 			@RequestParam(value="Manufacturer") String manufacturer,
@@ -248,7 +249,7 @@ public class BaseController {
 		}
 	
 
-	@RequestMapping(value = "*", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "*", method = {RequestMethod.GET,RequestMethod.PUT} )
 	public String redirect(ModelMap model) {
 		
 		model.addAttribute("APP",app);

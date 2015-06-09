@@ -1,0 +1,70 @@
+#one {
+	color:black;
+	font-weight:bold;
+}
+
+a.links {
+	float: left;
+	margin-top: 15px;
+	margin-right: 20px;    
+    display:inline-block;
+    border-style:none;
+    font-size: 100%;
+    color: blue;
+    background-color: white;
+}
+a.linksTable {
+	float: left;
+	display:inline-block;
+    border-style:none;
+    font-size: 100%;
+    color: blue;
+    background-color: white;
+}
+
+a.links:hover,a.linksTable:hover { 
+    text-decoration:underline;
+}
+body {
+	padding-left:1em
+	
+}
+
+button {
+	float: left;
+	margin-right: 40px;
+	margin-top: 20px;
+	width=50px;height:30px
+}
+
+table,th,td {
+	border-collapse: collapse;
+	border:1px solid green;
+}
+
+table.links,th.links,td.links {
+	border-collapse: collapse;
+	border:0px;
+	padding:10px;
+}
+
+th {padding: 5px;
+    background-color: green;
+    color: white;
+}
+
+td {
+	text-align: left;
+    padding: 5px;
+    vertical-align: bottom;
+}
+
+div.links {
+	display:inline-block;
+	height:40px;
+	max-width:60%;
+	overflow: visible;
+}
+#nums {
+	width:500px;
+}
