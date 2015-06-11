@@ -32,6 +32,12 @@ div.round{
     width: 700px;
     box-shadow: 10px 10px 5px #888888;
 }
+.links {
+	color:blue;
+}
+.links:hover {
+	text-decoration:underline;
+}
 </style>
 <h2>Update:</h2>
 <form action="update.do" method="POST">
@@ -42,6 +48,8 @@ div.round{
 <tr><td>UPC:</td><td><input type="text" name="UPC" value="${upc}" size="35" ></td></tr>
 <tr><td>Manufacturer:</td><td><input type="text" name="Manufacturer" value="${manufacturer}" size="35"  autofocus></td></tr>
 <tr><td>Brand:</td><td><input type="text" name="Brand" value="${brand}" size="35" ></td></tr>
+<tr><td>Descriptions:</td><td><input type="text" name="Description" value="${description}" size="35" ></td></tr>
+<tr><td>ItemSize:</td><td><input type="text" name="ItemSize" value="${itemSize}" size="35" ></td></tr>
 </table>
 </div>
 <input type="hidden" id="src" name="src" value="" />
@@ -50,6 +58,6 @@ div.round{
 </form>
 <p id="test"></p>
 <br><br><br>
-<a href="${src}">Go Back</a>
+<a class="links" onclick="history.go(-1)">Go Back</a>
 </body>
 </html>

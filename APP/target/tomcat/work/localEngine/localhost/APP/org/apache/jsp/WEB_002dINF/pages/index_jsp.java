@@ -67,7 +67,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\"></script>\r\n");
       out.write("<meta charset=\"ISO-8859-1\">\r\n");
       out.write("</head>\r\n");
-      out.write("<body onLoad=\"addResults();next();\">\r\n");
+      out.write("<body>\r\n");
       out.write("\r\n");
       out.write("<script>\r\n");
       out.write("\r\n");
@@ -87,6 +87,10 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${message}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("\");\r\n");
       out.write("\r\n");
+      out.write("$(document).ready( function() {\r\n");
+      out.write("\taddResults();\r\n");
+      out.write("\tnext();\r\n");
+      out.write("});\r\n");
       out.write("\r\n");
       out.write("\r\n");
       out.write("function next() {        \r\n");
@@ -142,10 +146,12 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    document.getElementById(\"ten\").innerHTML = \"\";\r\n");
       out.write("    if(no_of_pages>=clicks+10)    \r\n");
       out.write("    clicks += 10;\r\n");
+      out.write("    \r\n");
       out.write("    if(stop>1)\r\n");
       out.write("    goToPage(document.getElementById(\"one\").innerHTML);\r\n");
       out.write("    else\r\n");
       out.write("    stop=2;\r\n");
+      out.write("    \r\n");
       out.write("};\r\n");
       out.write("    \r\n");
       out.write("function prev() {\r\n");

@@ -86,6 +86,12 @@ public final class update_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    width: 700px;\r\n");
       out.write("    box-shadow: 10px 10px 5px #888888;\r\n");
       out.write("}\r\n");
+      out.write(".links {\r\n");
+      out.write("\tcolor:blue;\r\n");
+      out.write("}\r\n");
+      out.write(".links:hover {\r\n");
+      out.write("\ttext-decoration:underline;\r\n");
+      out.write("}\r\n");
       out.write("</style>\r\n");
       out.write("<h2>Update:</h2>\r\n");
       out.write("<form action=\"update.do\" method=\"POST\">\r\n");
@@ -102,6 +108,12 @@ public final class update_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<tr><td>Brand:</td><td><input type=\"text\" name=\"Brand\" value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${brand}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("\" size=\"35\" ></td></tr>\r\n");
+      out.write("<tr><td>Descriptions:</td><td><input type=\"text\" name=\"Description\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${description}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\" size=\"35\" ></td></tr>\r\n");
+      out.write("<tr><td>ItemSize:</td><td><input type=\"text\" name=\"ItemSize\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${itemSize}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\" size=\"35\" ></td></tr>\r\n");
       out.write("</table>\r\n");
       out.write("</div>\r\n");
       out.write("<input type=\"hidden\" id=\"src\" name=\"src\" value=\"\" />\r\n");
@@ -110,9 +122,7 @@ public final class update_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</form>\r\n");
       out.write("<p id=\"test\"></p>\r\n");
       out.write("<br><br><br>\r\n");
-      out.write("<a href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${src}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-      out.write("\">Go Back</a>\r\n");
+      out.write("<a class=\"links\" onclick=\"history.go(-1)\">Go Back</a>\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

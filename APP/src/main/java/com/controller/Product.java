@@ -22,6 +22,8 @@ public class Product {
 	private String upc;
 	private String manufacturer;
 	private String brand;
+	private String description;	
+	private String itemSize;
 	
 	public String getUpc() {
 		return upc;
@@ -40,15 +42,28 @@ public class Product {
 	}
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}	
+	
+	public String getDescription() {
+		return description;
 	}
-	
-	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getItemSize() {
+		return itemSize;
+	}
+	public void setItemSize(String itemSize) {
+		this.itemSize = itemSize;
+	}
 	public String getString()
 	{
 		String prod="";
 		prod+=upc+",";
 		prod+=manufacturer+",";
-		prod+=brand;
+		prod+=brand+",";
+		prod+=description+",";
+		prod+=itemSize;
 		
 		
 		return prod;

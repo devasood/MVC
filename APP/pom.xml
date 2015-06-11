@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
 	http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mkyong</groupId>
+	<groupId>com.ricoh</groupId>
 	<artifactId>APP</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -95,12 +95,19 @@
         	<artifactId>hibernate-ehcache</artifactId>
         	<version>4.3.10.Final</version>
     	</dependency>
+    	
+    	<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+    	
 		
 				
 	</dependencies>
  
 	<build>
-		<finalName>CounterWebApp</finalName>
+		<finalName>Repository</finalName>
  
 		<plugins>
 		    <!-- Eclipse project -->
@@ -134,7 +141,7 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.2</version>
 			<configuration>
-				<path>/CounterWebApp</path>
+				<path>/Repository</path>
 			</configuration>
 		  </plugin>
  

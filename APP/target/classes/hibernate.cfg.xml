@@ -23,5 +23,7 @@
         
         
         <mapping class="com.controller.Product"/>
+        <mapping class="com.controller.manufacturer"/>
+        <mapping class="com.controller.brand"/>
     </session-factory>
 </hibernate-configuration>

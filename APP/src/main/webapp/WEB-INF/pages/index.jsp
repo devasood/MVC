@@ -5,7 +5,7 @@
 <script src="<c:url value="/resources/js/jquery-2.1.4.js" />"></script>
 <meta charset="ISO-8859-1">
 </head>
-<body onLoad="addResults();next();">
+<body>
 
 <script>
 
@@ -17,6 +17,10 @@ var stop=1;
 if(message.length>0)
 alert("${message}");
 
+$(document).ready( function() {
+	addResults();
+	next();
+});
 
 
 function next() {        
@@ -70,10 +74,12 @@ document.getElementById("test").innerHTML=(no_of_pages)*10-10+" record displayed
     document.getElementById("ten").innerHTML = "";
     if(no_of_pages>=clicks+10)    
     clicks += 10;
+    
     if(stop>1)
     goToPage(document.getElementById("one").innerHTML);
     else
     stop=2;
+    
 };
     
 function prev() {
