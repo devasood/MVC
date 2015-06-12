@@ -10,7 +10,10 @@ package com.controller;
 
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +32,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.XML;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,77 +53,13 @@ public class BaseController {
 			.buildSessionFactory(new StandardServiceRegistryBuilder()
 			.applySettings(configuration.getProperties()).build());
 	
-	private void insertValues(String upc,String manufacturer,String brand,String description,String itemSize)
-	{	
-		Product product=new Product();
-		product.setUpc(upc);	
-		product.setManufacturer(manufacturer);
-		product.setBrand(brand);
-		product.setDescription(description);
-		product.setItemSize(itemSize);
-		
-		
-		Session session=sessionFactory.openSession();
-		session.beginTransaction();
-		
-		session.save(product);
-		
-		session.getTransaction().commit();
-		session.close();
-				
-	}
 	
-	private String getPageCount(String upc,String manufacturer,String brand)
-	{	Session session=sessionFactory.openSession();
 	
-		Criteria criteria=session.createCriteria(Product.class);
-		criteria.add(Restrictions.like("upc", "%"+upc+"%"))
-				.add(Restrictions.like("manufacturer", "%"+manufacturer+"%"))
-				.add(Restrictions.like("brand", "%"+brand+"%"))
-				.addOrder(Order.asc("upc"))
-				.setFetchMode("upc", org.hibernate.FetchMode.SELECT)
-				.setProjection(Projections.property("upc"));
-		
-		
-		criteria.setCacheable(true);
-		
-		
-		int count=criteria.list().size();
-		
-		session.close();
-		
-		return ""+count;
-		
-	}
 	
-	private List<Product> searchValues(String page,String upc,String manufacturer,String brand)
-	{	Session session=sessionFactory.openSession();
-		
-		Criteria criteria=session.createCriteria(Product.class);
-		criteria.add(Restrictions.like("upc", "%"+upc+"%"))
-				.add(Restrictions.like("manufacturer", "%"+manufacturer+"%"))
-				.add(Restrictions.like("brand", "%"+brand+"%"))
-				.addOrder(Order.asc("upc"));
-		
-		
-		criteria.setFirstResult((Integer.parseInt(page)-1)*10);
-		criteria.setFetchSize(10);
-		criteria.setCacheable(true);
-		
-		
-		List<Product> list=(List<Product>)criteria.list();
-		
-		session.close();
-		
-		return list;
-		
-	}
+	
 	
 
-	public String r()
-	{	Random r=new Random();/*generates random values*/
-		return ""+r.nextInt(1000000);
-	}
+	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showIndex(ModelMap model) {
@@ -140,23 +80,7 @@ public class BaseController {
 	@RequestParam(value="UPC") String upc,	
 	@RequestParam(value="src") String src)
 	{	
-		Session session=sessionFactory.openSession();
-		Product product=(Product)session.get(Product.class, upc);
-				
-		String manufacturer=product.getManufacturer(),
-			   brand=product.getBrand(),
-			   description=product.getDescription(),
-			   itemSize=product.getItemSize();
-		
-		
-		model.addAttribute("upc",upc);
-		model.addAttribute("manufacturer",manufacturer);
-		model.addAttribute("brand",brand);
-		model.addAttribute("description",description);
-		model.addAttribute("itemSize",itemSize);
-		
-		session.close();
-		
+			
 		model.addAttribute("src",src);
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
@@ -170,30 +94,15 @@ public class BaseController {
 		@RequestParam(value="Brand") String Brand,
 		@RequestParam(value="Description") String Description,
 		@RequestParam(value="ItemSize") String ItemSize)
-	{	String message=""; 
-		insertValues(UPC,Manufacturer,Brand,Description,ItemSize);
-		if(message.length()<1)
-			message="Inserted successfully";
+	{	
 		
-		model.addAttribute("message",message);
+		model.addAttribute("message","Inserted successfully");
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
 		return "index";		
 	}
 	
-	@RequestMapping(value="/create.random", method=RequestMethod.GET)
-	public String createRandom(ModelMap model)
-		
-		{	
-			for(int i=0;i<10000;i++)
-			{try{insertValues(r(),r(),r(),r(),r());}catch(Exception e){}}
-			
-			
-			model.addAttribute("message","Random Inserted successfully");
-			model.addAttribute("APP",app);
-			model.addAttribute("backlink",backlink);
-			return "index";		
-		}
+	
 	
 	@RequestMapping(value="/getManufacturer", method=RequestMethod.GET)
 	public String getManufacturer(ModelMap model)
@@ -255,6 +164,64 @@ public class BaseController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/getItem", method=RequestMethod.GET)
+	public String getItem(ModelMap model)
+	{	
+		
+		try{Scanner s=new Scanner(new File("C:\\Users\\devashishs\\Desktop\\items1.xml"));
+		String data="";
+		while(s.hasNextLine())	
+		{String temp=s.nextLine();data+=temp+"\n";}
+			data=Jsoup.parse(data).toString();
+			JSONObject json=XML.toJSONObject(data);
+			System.out.println();
+			JSONArray itemList=json.getJSONObject("html").getJSONObject("body").getJSONObject("items")
+			.getJSONArray("item");
+			
+			Session session=sessionFactory.openSession();
+			session.beginTransaction();
+			
+			
+			for (int i = 0; i < itemList.length(); i++) {
+				JSONObject temp=itemList.getJSONObject(i);
+//				ItemType item=new ItemType();
+//				item.setId(temp.getString("id"));
+//				item.setName(temp.getString("name"));
+//				item.setMarketingDescription(temp.getString("marketingdescription"));
+//				item.setOtherDescription(temp.getString("otherdescription"));
+//				
+//				try{
+//					JSONArray temp2=temp.getJSONObject("upcs").getJSONArray("upc");				
+//					for(int j=0;j<temp2.length();j++)
+//					{
+//						item.getUpcs().add(temp2.getJSONObject(j).getString("content"));
+//					}
+//				}catch(Exception e){item.getUpcs()
+//					.add(temp.getJSONObject("upcs").getJSONObject("upc").getString("content"));}
+//				
+//				try{					
+//					JSONArray temp2=temp.getJSONObject("categories").getJSONArray("category");
+//					for(int j=0;j<temp2.length();j++)
+//					{
+//						item.getCategories().add(temp2.getJSONObject(j).getString("content"));
+//					}
+//				}catch(Exception e){item.getUpcs()
+//					.add(temp.getJSONObject("categories").getJSONObject("category").getString("content"));}
+//								
+//				session.save(item);
+			}
+			
+			session.getTransaction().commit();
+			session.close();
+			
+		}	
+	catch(Exception e){System.out.println(e);}
+		
+		
+		model.addAttribute("message","Inserted Items.");
+		return "index";
+	}
+	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String searchResult(ModelMap model,
 		@RequestParam(value="UPC") String UPC,
@@ -266,31 +233,31 @@ public class BaseController {
 		
 		if(delete!=null)
 		{/*Deletes a record*/
-			Session session=sessionFactory.openSession();
-			session.beginTransaction();
-			Product product=(Product)session.get(Product.class, delete);
-			if(product!=null)
-			session.delete(product);
-			session.getTransaction().commit();
-			session.close();
+//			Session session=sessionFactory.openSession();
+//			session.beginTransaction();
+//			Product product=(Product)session.get(Product.class, delete);
+//			if(product!=null)
+//			session.delete(product);
+//			session.getTransaction().commit();
+//			session.close();
 			
 		}		
 		
-		String no_of_records=getPageCount(UPC,Manufacturer,Brand);
+//		String no_of_records=getPageCount(UPC,Manufacturer,Brand);
 		
 		long stats=System.currentTimeMillis();
 		
-		List<Product> list=searchValues(Page,UPC,Manufacturer,Brand);
-		
-		for(int i=0;i<list.size();i++)
-			{String prod[]=list.get(i).getString().split(",");
-			for(int j=0;j<3;j++)
-			model.addAttribute("s"+i+j,prod[j]);
-			}
+//		List<Product> list=searchValues(Page,UPC,Manufacturer,Brand);
+//		
+//		for(int i=0;i<list.size();i++)
+//			{String prod[]=list.get(i).getString().split(",");
+//			for(int j=0;j<3;j++)
+//			model.addAttribute("s"+i+j,prod[j]);
+//			}
 		
 		stats=(System.currentTimeMillis()-stats);
 		model.addAttribute("stats",stats+"ms");
-		model.addAttribute("no_of_records",no_of_records);
+//		model.addAttribute("no_of_records",no_of_records);
 		model.addAttribute("currentPage",Page);
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);
@@ -306,19 +273,6 @@ public class BaseController {
 			@RequestParam(value="ItemSize") String itemSize,
 			@RequestParam(value="src") String src)
 			{	
-			Session session=sessionFactory.openSession();
-			session.beginTransaction();
-			
-			Product product=(Product)session.get(Product.class, upc);
-			product.setManufacturer(manufacturer);
-			product.setBrand(brand);
-			product.setDescription(description);
-			product.setItemSize(itemSize);
-			
-			session.update(product);
-			
-			session.getTransaction().commit();
-			session.close();
 			
 			model.addAttribute("src",src);
 			model.addAttribute("APP",app);

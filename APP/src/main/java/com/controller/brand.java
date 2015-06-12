@@ -12,6 +12,7 @@ public class brand {
 	private String id;
 	@Column
 	private String name;
+	
 	public String getId() {
 		return id;
 	}

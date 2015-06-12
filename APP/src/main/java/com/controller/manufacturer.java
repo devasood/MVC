@@ -12,6 +12,7 @@ public class manufacturer {
 	String id;
 	@Column
 	String name;
+	
 	public String getManufacturer_id() {
 		return id;
 	}
