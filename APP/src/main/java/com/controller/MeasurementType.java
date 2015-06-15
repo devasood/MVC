@@ -2,19 +2,13 @@ package com.controller;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+@Embeddable
 public class MeasurementType {
-	@Id @GeneratedValue
-	private String measurement_id;
 	@Column
 	private double measure;
 	@Column
 	private String uom;
-	
 	public double getMeasure() {
 		return measure;
 	}
@@ -26,6 +20,7 @@ public class MeasurementType {
 	}
 	public void setUom(String uom) {
 		this.uom = uom;
-	}	
+	}
 	
+
 }

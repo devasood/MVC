@@ -2,14 +2,10 @@ package com.controller;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+@Embeddable
 public class CompanyType {
-	@Id @GeneratedValue
-	private String company_id;
+	
 	@Column
 	private String name;
 	@Column
@@ -19,7 +15,7 @@ public class CompanyType {
 	@Column
 	private String phone;
 	@Column
-	private String url;/*any Uri type*/
+	private String url;
 	public String getName() {
 		return name;
 	}
@@ -50,5 +46,9 @@ public class CompanyType {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	
+
+	
 	
 }

@@ -17,28 +17,24 @@
         <property name="hibernate.cache.use_query_cache">true</property>
         
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.order_updates">true</property>
         <property name="hibernate.generate_statistics">true</property>
+        <property name="sql.enforce_strict_size">true</property>
         
         
         <mapping class="com.controller.manufacturer"/>
         <mapping class="com.controller.brand"/>
         <mapping class="com.controller.ItemType"/>
         <mapping class="com.controller.Upc"/>
-        <mapping class="com.controller.Category"/>
+        <mapping class="com.controller.Category"/>        
         <mapping class="com.controller.MeasurementType"/>
-        <mapping class="com.controller.ValueWithIdType"/>
+        <mapping class="com.controller.PackageData"/>
         <mapping class="com.controller.Product"/>
         <mapping class="com.controller.Grocery"/>
-        <mapping class="com.controller.NutritionalClaim"/>
-        <mapping class="com.controller.FoodRelatedIndicator"/>
-        <mapping class="com.controller.Nutrition"/>
-        <mapping class="com.controller.ServingSize"/>
-        <mapping class="com.controller.Uom"/>
-        <mapping class="com.controller.DailyPct"/>
-        <mapping class="com.controller.DailyPctCalories"/>      
         <mapping class="com.controller.CompanyType"/>
+        <mapping class="com.controller.ValueWithIdType"/>
+        
         
     </session-factory>
 </hibernate-configuration>

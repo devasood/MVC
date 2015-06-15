@@ -2,13 +2,11 @@ package com.controller;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+@Embeddable
 public class ValueWithIdType {
-	@Id
+	
+	@Column
 	private String id;
 	@Column
 	private String content;
@@ -25,4 +23,5 @@ public class ValueWithIdType {
 		this.content = content;
 	}
 	
+
 }

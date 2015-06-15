@@ -5,11 +5,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,10 +22,12 @@ import javax.persistence.Entity;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.json.JSONObject;
 
 @Entity
 @Table
 public class ItemType {
+		
 	@Id
 	private String id;
 	@Column
@@ -33,40 +39,52 @@ public class ItemType {
 	@Column(length=5000)
 	private String otherDescription;
 	
-	@OneToMany
-	Collection<Upc> upcs=new ArrayList<Upc>();
-	@OneToMany
-	Collection<Category> categories=new ArrayList<Category>();
+	@GenericGenerator(name="hi-lo",strategy="hilo")
+	@ElementCollection
+	@CollectionId(columns=@Column(name="upc_id"),generator="hi-lo",type=@Type(type="long"))
+	private Collection<Upc> upcs=new ArrayList<Upc>();
 	
-	@OneToOne
-	private MeasurementType length=new MeasurementType();
-	@OneToOne
-	private MeasurementType height=new MeasurementType();
-	@OneToOne
-	private MeasurementType width=new MeasurementType();
-	@Column
-	private int unitsInPackage;
-	@OneToOne
-	ValueWithIdType packageType =new ValueWithIdType();
-	@OneToOne
-	private MeasurementType packageSize=new MeasurementType();
-	@OneToOne
-	private MeasurementType dryWeight=new MeasurementType();
-	@OneToOne
-	private MeasurementType netWeight=new MeasurementType();
-	@Column
-	private String information;
-	@OneToMany
-	private Collection<Product> products=new ArrayList<Product>();
-	@OneToOne
+	@GenericGenerator(name="hi-lo",strategy="hilo")
+	@ElementCollection
+	@CollectionId(columns=@Column(name="category_id"),generator="hi-lo",type=@Type(type="long"))
+	private Collection<Category> categories=new ArrayList<Category>();
+	
+	@Embedded
+	private PackageData packageData=new PackageData();
+	
+	@GenericGenerator(name="hi-lo",strategy="hilo")
+	@ElementCollection
+	@CollectionId(columns=@Column(name="product_id"),generator="hi-lo",type=@Type(type="long"))
+	private Collection<Product> product=new ArrayList<Product>();
+	
+	@Embedded
+	@AttributeOverrides({	
+			@AttributeOverride(name="name",column=@Column(name="distributor.name")),
+			@AttributeOverride(name="address",column=@Column(name="distributor.address")),
+			@AttributeOverride(name="email",column=@Column(name="distributor.email")),
+			@AttributeOverride(name="phone",column=@Column(name="distributor.phone")),
+			@AttributeOverride(name="url",column=@Column(name="distributor.url"))
+	})
 	private CompanyType packageDistributor=new CompanyType();
-	@OneToOne
+	
+	@Embedded
+	@AttributeOverrides({	
+		@AttributeOverride(name="name",column=@Column(name="manufacturer.name")),
+		@AttributeOverride(name="address",column=@Column(name="manufacturer.address")),
+		@AttributeOverride(name="email",column=@Column(name="manufacturer.email")),
+		@AttributeOverride(name="phone",column=@Column(name="manufacturer.phone")),
+		@AttributeOverride(name="url",column=@Column(name="manufacturer.url"))
+	})
 	private CompanyType packageManufacturer=new CompanyType();
-	@OneToMany
-	Collection<ValueWithIdType> attributes=new ArrayList<ValueWithIdType>();
 	
+	@Embedded
+	@AttributeOverrides({	
+			@AttributeOverride(name="id",column=@Column(name="attribute.name")),			
+			@AttributeOverride(name="content",column=@Column(name="attribute"))
+	})
+	private ValueWithIdType attribute=new ValueWithIdType();
 	
-	
+		
 	public String getId() {
 		return id;
 	}
@@ -96,75 +114,31 @@ public class ItemType {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
+	}	
 	public Collection<Upc> getUpcs() {
 		return upcs;
 	}
-	public void setUpcs(Set<Upc> upcs) {
+	public void setUpcs(Collection<Upc> upcs) {
 		this.upcs = upcs;
-	}
+	}	
 	public Collection<Category> getCategories() {
 		return categories;
 	}
 	public void setCategories(Collection<Category> categories) {
 		this.categories = categories;
 	}
-	public MeasurementType getLength() {
-		return length;
+	public PackageData getPackageData() {
+		return packageData;
 	}
-	public void setLength(MeasurementType length) {
-		this.length = length;
+	public void setPackageData(PackageData packageData) {
+		this.packageData = packageData;
 	}
-	public MeasurementType getHeight() {
-		return height;
+	public Collection<Product> getProduct() {
+		return product;
 	}
-	public void setHeight(MeasurementType height) {
-		this.height = height;
+	public void setProduct(Collection<Product> product) {
+		this.product = product;
 	}
-	public MeasurementType getWidth() {
-		return width;
-	}
-	public void setWidth(MeasurementType width) {
-		this.width = width;
-	}
-	public int getUnitsInPackage() {
-		return unitsInPackage;
-	}
-	public void setUnitsInPackage(int unitsInPackage) {
-		this.unitsInPackage = unitsInPackage;
-	}
-	public ValueWithIdType getPackageType() {
-		return packageType;
-	}
-	public void setPackageType(ValueWithIdType packageType) {
-		this.packageType = packageType;
-	}
-	public MeasurementType getPackageSize() {
-		return packageSize;
-	}
-	public void setPackageSize(MeasurementType packageSize) {
-		this.packageSize = packageSize;
-	}
-	public MeasurementType getDryWeight() {
-		return dryWeight;
-	}
-	public void setDryWeight(MeasurementType dryWeight) {
-		this.dryWeight = dryWeight;
-	}
-	public MeasurementType getNetWeight() {
-		return netWeight;
-	}
-	public void setNetWeight(MeasurementType netWeight) {
-		this.netWeight = netWeight;
-	}
-	public String getInformation() {
-		return information;
-	}
-	public void setInformation(String information) {
-		this.information = information;
-	}
-	
 	public CompanyType getPackageDistributor() {
 		return packageDistributor;
 	}
@@ -177,18 +151,12 @@ public class ItemType {
 	public void setPackageManufacturer(CompanyType packageManufacturer) {
 		this.packageManufacturer = packageManufacturer;
 	}
-	public Collection<ValueWithIdType> getAttributes() {
-		return attributes;
+	public ValueWithIdType getAttribute() {
+		return attribute;
 	}
-	public void setAttributes(Collection<ValueWithIdType> attributes) {
-		this.attributes = attributes;
+	public void setAttribute(ValueWithIdType attribute) {
+		this.attribute = attribute;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 }
