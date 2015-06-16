@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Warning {
 	@Column
-	private String warning;
+	private String warning="";
 
 	public String getWarning() {
 		return warning;

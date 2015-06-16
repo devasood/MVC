@@ -157,6 +157,16 @@ public class ItemType {
 	public void setAttribute(ValueWithIdType attribute) {
 		this.attribute = attribute;
 	}
+	public String getString()
+	{String temp="";
+		
+	try{temp=((Product)product.toArray()[0]).getString();}catch(Exception e){}
+		
+		if(temp.length()>0)
+		return temp;
+		else
+			return id+",Not available,Not available";
+	}
 	
 	
 }

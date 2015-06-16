@@ -10,9 +10,11 @@ package com.controller;
 
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -21,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -105,8 +108,12 @@ public class BaseController {
 	public String getManufacturer(ModelMap model)
 	{	
 		
-		try{Scanner s=new Scanner(new File("C:\\Users\\devashishs\\Desktop\\manufacturer.xml"));
-			String data=s.nextLine();
+		try{
+			Scanner s=new Scanner(new File("C:\\Users\\devashishs\\Desktop\\manufacturer.xml"));
+			String data=""; 
+			data=s.nextLine();
+			
+			
 			String decode[]=data.split("id=\"");
 			
 			Session session=sessionFactory.openSession();
@@ -175,12 +182,24 @@ public class BaseController {
 	}
 	
 	@RequestMapping(value="/getItem", method=RequestMethod.GET)
-	public String getItem(ModelMap model)
-	{	
+	public String getItem(ModelMap model,
+	@RequestParam(value="Page") int page)
+	{	int increment=50;
 		
 		try{
-
-			String data=Jsoup.parse(new File("C:\\Users\\devashishs\\Desktop\\items1.xml"),"UTF-8").toString();
+String cmd="curl -k -o C:\\Users\\devashishs\\Desktop\\items11.xml --header \"username:sagarwal\" "
+		+ "--header \"password:Password1\" \"https://api.itemmaster.com/v2/item?idx="+page+"&limit="+increment+"\"";
+			
+		
+			try{String line="";
+				Process p=Runtime.getRuntime().exec(cmd);
+				p.waitFor(1,TimeUnit.MINUTES);
+//				BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream()));
+//				
+//				line+=br.readLine();
+			}catch(Exception e){}
+			String data=Jsoup.parse(new File("C:\\Users\\devashishs\\Desktop\\items11.xml"),"UTF-8").toString();
+			
 			
 			JSONObject json=XML.toJSONObject(data);
 			JSONArray itemList=json.getJSONObject("html").getJSONObject("body").getJSONObject("items")
@@ -189,6 +208,7 @@ public class BaseController {
 			
 			
 			for (int i = 0; i < itemList.length(); i++) {
+				try{
 				
 				Session session=sessionFactory.openSession();
 				session.beginTransaction();			
@@ -199,9 +219,9 @@ public class BaseController {
 				
 				itemtype.setId(item.getString("id"));
 				itemtype.setStatus(item.getString("status"));
-				itemtype.setName(item.getString("name"));
-				itemtype.setMarketingDescription(item.getString("marketingdescription"));
-				itemtype.setOtherDescription(item.getString("otherdescription"));
+				try{itemtype.setName(item.getString("name"));}catch(Exception e){}
+				try{itemtype.setMarketingDescription(item.getString("marketingdescription"));}catch(Exception e){}
+				try{itemtype.setOtherDescription(item.getString("otherdescription"));}catch(Exception e){}
 				try{
 					Collection<Upc> upcs=new ArrayList<Upc>();
 					Upc temp=new Upc();					
@@ -332,14 +352,156 @@ public class BaseController {
 					}catch(Exception e){}
 					
 					try{
+						temp.getWarning().setWarning(prod.getJSONObject("warnings").getString("warning"));
+					}catch(Exception e){}
+					
+					try{
 						temp.setDirections(prod.getString("directions"));
 					}catch(Exception e){}
 					
 					try{
 						Grocery grocery=new Grocery();
+						JSONObject groc=prod.getJSONObject("grocery");
 						
-						grocery.setIngredients(item.getJSONObject("products").getJSONObject("product")
-								.getJSONObject("grocery").getString("ingredients"));
+						try{grocery.setNdcCode(groc.getString("ndccode"));
+						
+						}catch(Exception e){}
+						try{grocery.setIngredients(groc.getString("ingredients"));
+						
+						}catch(Exception e){}
+						try{grocery.setVitaminsAndMinerals(groc.getString("vitaminsandminerals"));
+						
+						}catch(Exception e){}
+						
+						try{if(groc.getJSONObject("nutritionalclaims").getString("fatfree").equals("Y"))
+							grocery.setNutritionalClaims("fatFree");
+						}catch(Exception e){}
+						try{if(groc.getJSONObject("nutritionalclaims").getString("goodsourceoffiber").equals("Y"))
+							grocery.setNutritionalClaims("goodSourceOfFiber");
+						}catch(Exception e){}
+						try{if(groc.getJSONObject("nutritionalclaims").getString("lowfat").equals("Y"))
+							grocery.setNutritionalClaims("lowFat");
+						}catch(Exception e){}
+						try{if(groc.getJSONObject("nutritionalclaims").getString("lowsodium").equals("Y"))
+							grocery.setNutritionalClaims("lowSodium");
+						}catch(Exception e){}
+						try{if(groc.getJSONObject("nutritionalclaims").getString("sugarfree").equals("Y"))
+							grocery.setNutritionalClaims("sugarFree");
+						}catch(Exception e){}
+						
+						try{grocery.setKosherCode(groc.getJSONObject("koshercodes").getString("koshercode"));
+						
+						}catch(Exception e){}
+						
+						try{
+							grocery.setCertificate(groc.getJSONObject("certifications").getString("certificate"));
+						}catch(Exception e){}
+						
+						try{String val="antibioticFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="dairyFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="eggFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="flavor";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="glutenFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="hormoneFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="lactoseFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="natural";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="nitratesFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="nitritesFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="organic";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="peanutFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="readyToCook";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="readyToHeat";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="vegan";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="vegetarian";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="wheatFree";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						try{String val="nonGmo";
+						if(groc.getJSONObject("foodrelatedindicators").getString(val.toLowerCase()).equals("Y"))
+							grocery.setFoodRelatedIndicators(val);
+						}catch(Exception e){}
+						
+						
+						try{
+							grocery.setTemperatureType(groc.getJSONObject("foodrelatedindicators").getString("temperatureindicator"));
+						}catch(Exception e){}
+						
+						try{						
+							grocery.setRecycleCodes(groc.getString("recyclecodes"));	
+						}catch(Exception e){}
+						
+						
+//						try{						
+//							Nutrition nutrition=new Nutrition();
+//							JSONObject nutr=groc.getJSONObject("nutritions").getJSONObject("nutrition");
+//							
+//							try{
+//								nutrition.setSequence(nutr.getInt("sequence"));
+//							}catch(Exception e){}
+//							try{
+//								nutrition.setTitle(nutr.getString("title"));
+//							}catch(Exception e){}
+//							try{
+//								nutrition.setNumberServedInPackage(nutr.getString("numberservedinpackage"));
+//							}catch(Exception e){}
+//							try{
+//								nutrition.setNumberOfServings(nutr.getString("numberofservings"));
+//							}catch(Exception e){}
+//							
+//							
+//							grocery.setNutrition(nutrition);	
+//						}catch(Exception e){}
+						
+						
 						
 						temp.setGrocery(grocery);
 					}catch(Exception e){}
@@ -406,17 +568,17 @@ public class BaseController {
 //				}catch(Exception e){item.getUpcs()
 //					.add(temp.getJSONObject("categories").getJSONObject("category").getString("content"));}
 //				
-				
+			}catch(Exception e){System.out.println("err in record "+e);}
 				
 			}			
 			
-			
+		
 		}	
-	catch(Exception e){System.out.println(e);}
+	catch(Exception e){System.out.println("err in page "+e);}
 		
-		
+		try{model.addAttribute("page",page+increment);}catch(Exception e){}
 		model.addAttribute("message","Inserted Items.");
-		return "index";
+		return "increment";
 	}
 	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
@@ -439,22 +601,41 @@ public class BaseController {
 //			session.close();
 			
 		}		
+		Session session=sessionFactory.openSession();
+		Criteria criteria=session.createCriteria(ItemType.class);
 		
-//		String no_of_records=getPageCount(UPC,Manufacturer,Brand);
+		
+				
+		
+		String no_of_records=""+criteria.list().size();
 		
 		long stats=System.currentTimeMillis();
+	
+		criteria
+		.setFirstResult((Integer.parseInt(Page)-1)*10)
+		.setMaxResults(10);
 		
-//		List<Product> list=searchValues(Page,UPC,Manufacturer,Brand);
-//		
-//		for(int i=0;i<list.size();i++)
-//			{String prod[]=list.get(i).getString().split(",");
-//			for(int j=0;j<3;j++)
-//			model.addAttribute("s"+i+j,prod[j]);
-//			}
+		List<ItemType> list=criteria.list();
+				
+				
+		
+		for(int i=0;i<list.size();i++)
+			{String prod[]=list.get(i).getString().split(",");
+			for(int j=0;j<3;j++)
+				{if(j==0)
+					model.addAttribute("s"+i+j,prod[j].split("-")[4]);
+				else
+					model.addAttribute("s"+i+j,prod[j]);
+				}
+			}
 		
 		stats=(System.currentTimeMillis()-stats);
+		
+		session.close();
+		
+		
 		model.addAttribute("stats",stats+"ms");
-//		model.addAttribute("no_of_records",no_of_records);
+		model.addAttribute("no_of_records",no_of_records);
 		model.addAttribute("currentPage",Page);
 		model.addAttribute("APP",app);
 		model.addAttribute("backlink",backlink);

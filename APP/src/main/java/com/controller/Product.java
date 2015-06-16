@@ -55,16 +55,20 @@ public class Product {
 	@Column
 	private String countryOfOrigin;
 	
-//	@GenericGenerator(name="hi-lo",strategy="hilo")
-//	@ElementCollection
-//	@CollectionId(columns=@Column(name="warning_id",length=5000),generator="hi-lo",type=@Type(type="long"))
-//	private Collection<Warning> warnings=new ArrayList<Warning>();
+	@Embedded
+	@AttributeOverride(name="warning",column=@Column(name="warning",length=5000))
+	private Warning warning=new Warning();
 	
 	@Column(name="directions",length=5000)
 	private String directions;
 	
 	@Embedded
-	@AttributeOverride(name="ingredients",column=@Column(name="ingredients",length=5000))
+	@AttributeOverrides({
+		@AttributeOverride(name="ingredients",column=@Column(name="ingredients",length=5000)),
+		@AttributeOverride(name="vitaminsAndMinerals",column=@Column(name="vitaminsandminerals",length=5000)),
+		@AttributeOverride(name="nutritionalClaims",column=@Column(name="nutritionalclaims",length=5000)),
+		@AttributeOverride(name="foodRelatedIndicators",column=@Column(name="foodrelatedindicators",length=5000))
+	})
 	private Grocery grocery=new Grocery();
 
 	public int getSequence() {
@@ -130,13 +134,13 @@ public class Product {
 	public void setCountryOfOrigin(String countryOfOrigin) {
 		this.countryOfOrigin = countryOfOrigin;
 	}
-//	public Collection<Warning> getWarnings() {
-//		return warnings;
-//	}
-//
-//	public void setWarnings(Collection<Warning> warnings) {
-//		this.warnings = warnings;
-//	}
+	public Warning getWarning() {
+		return warning;
+	}
+
+	public void setWarning(Warning warning) {
+		this.warning = warning;
+	}
 
 	public String getDirections() {
 		return directions;
@@ -153,4 +157,9 @@ public class Product {
 	public void setGrocery(Grocery grocery) {
 		this.grocery = grocery;
 	}
+	public String getString()
+	{
+		return ""+id+","+manufacturer.getContent()+","+brand.getContent();
+	}
+	
 }

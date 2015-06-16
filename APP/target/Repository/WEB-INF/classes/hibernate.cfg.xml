@@ -31,6 +31,7 @@
         <mapping class="com.controller.MeasurementType"/>
         <mapping class="com.controller.PackageData"/>
         <mapping class="com.controller.Product"/>
+        <mapping class="com.controller.Warning"/>
         <mapping class="com.controller.Grocery"/>
         <mapping class="com.controller.CompanyType"/>
         <mapping class="com.controller.ValueWithIdType"/>
